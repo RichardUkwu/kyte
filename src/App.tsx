@@ -1,33 +1,30 @@
-import { Divider } from "@mui/material";
-import Navbar from "./components/Navbar/Navbar";
-import Leftbar from "./components/Leftbar/Leftbar";
-import Rightbar from "./components/Rightbar/Rightbar";
-import { Routes, Route, Outlet } from "react-router-dom";
-import Home from "./components/home/Home";
-import Profile from "./components/Profile/Profile";
+import { Routes, Route } from "react-router-dom";
+import Profile from "./_root/pages/Profile/Profile";
+import Login from "./_auth/Login/Login";
+import { Home } from "./_root/pages";
+import Signup from "./_auth/SignUp/Signup";
+import AuthLayout from "./_auth/AuthLayout";
+import RootLayout from "./_root/RootLayout";
+import "./globals.css"
+import { Toaster } from "@/components/ui/toaster"
 
 function App() {
-  const Layout = () => {
-    return (
-      <div>
-        <Navbar />
-        <Divider />
-        <div className="layout-div">
-          <Leftbar  />
-          <Outlet />
-          <Rightbar />
-        </div>
-      </div>
-    );
-  };
+  
   return (
     <>
-      <Routes>
-        <Route path="/" element={<Layout />} >
-          <Route path="/" element={<Home />}/>
-          <Route path="/profile/:id" element={<Profile />}/>
-        </Route>
-      </Routes>
+      <main className="flex h-screen">
+        <Routes>
+          <Route path="/" element={<RootLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/profile/:id" element={<Profile />} />
+          </Route>
+          <Route element={<AuthLayout />}>
+            <Route path="/sign-in" element={<Login />} />
+            <Route path="/sign-up" element={<Signup />} />
+          </Route>
+        </Routes>
+        <Toaster />
+      </main>
     </>
   );
 }
