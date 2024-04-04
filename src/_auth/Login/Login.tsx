@@ -13,12 +13,10 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { signinValidation } from "@/lib/validation";
-import Loader from "@/components/ui/shared/Loader";
+import Loader from "@/components/shared/Loader";
 import { Link, useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
-import {
-  useSignInAccount,
-} from "@/lib/react-query/queriesAndMutations";
+import { useSignInAccount } from "@/lib/react-query/queriesAndMutations";
 import { useUserContext } from "@/context/AuthContext";
 
 const Login = () => {
@@ -27,11 +25,10 @@ const Login = () => {
   const navigate = useNavigate();
 
   //Queries
- 
-  const { mutateAsync: signInAccount, } =
-    useSignInAccount();
 
-    // 1. Define your form.
+  const { mutateAsync: signInAccount } = useSignInAccount();
+
+  // 1. Define your form.
   const form = useForm<z.infer<typeof signinValidation>>({
     resolver: zodResolver(signinValidation),
     defaultValues: {
@@ -42,7 +39,6 @@ const Login = () => {
 
   // 2. Define a submit handler.
   async function onSubmit(values: z.infer<typeof signinValidation>) {
- 
     const session = await signInAccount({
       email: values.email,
       password: values.password,
@@ -57,7 +53,7 @@ const Login = () => {
     if (isLoggedIn) {
       form.reset();
 
-      navigate('/');
+      navigate("/");
     } else {
       return toast({ title: "Login failed, please try again." });
     }
@@ -66,9 +62,11 @@ const Login = () => {
   return (
     <Form {...form}>
       <div className="sm:w-420 flex-center flex-col">
-        <img src="/Logo/logo.png" alt="logo" />
+        <img src="/Logo/logo.png" alt="logo" width={130} height={325}/>
 
-        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">Log in to your kyte account</h2>
+        <h2 className="h3-bold md:h2-bold pt-5 sm:pt-12">
+          Log in to your kyte account
+        </h2>
         <p className="text-light-3 small-medium md:base-regular mt-2">
           welcome back, please enter yout details
         </p>
@@ -77,7 +75,6 @@ const Login = () => {
           onSubmit={form.handleSubmit(onSubmit)}
           className="flex flex-col gap-5 w-full mt-4"
         >
-          
           <FormField
             control={form.control}
             name="email"
