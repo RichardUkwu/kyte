@@ -24,7 +24,7 @@ import { useUserContext } from "@/context/AuthContext";
 
 const Signup = () => {
   const { toast } = useToast();
-  const { checkAuthUser, isLoading: isUserLoading } = useUserContext();
+  const { checkAuthUser } = useUserContext();
   const navigate = useNavigate();
 
   // 1. Define your form.
@@ -42,7 +42,7 @@ const Signup = () => {
   const { mutateAsync: createUserAccount, isPending: isCreatingAccount } =
     useCreateUserAccount();
 
-  const { mutateAsync: signInAccount, isPending: isSigningIn } =
+  const { mutateAsync: signInAccount} =
     useSignInAccount();
 
   // 2. Define a submit handler.
