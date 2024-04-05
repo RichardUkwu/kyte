@@ -82,7 +82,7 @@ const PostForm = ({ post, action }: postFormProps) => {
       })
     }
     navigate('/');
-    console.log(values);
+
   }
 
   return (
